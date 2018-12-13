@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# Script emulating OVH post-installation script procedure
+
+SCRIPT_URL="https://raw.githubusercontent.com/MatthieuMichon/post-config/master/scripts/ovh/ovh.sh"
+
+bash <(wget --no-check-certificate -qO - $SCRIPT_URL)
