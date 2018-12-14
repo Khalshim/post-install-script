@@ -31,7 +31,7 @@ if [[ ! $(apt-key fingerprint $FINGERPRINT) ]] ; then
 fi
 }
 
-do_get_stable_version() {
+do_get_stable_version () {
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
    $(lsb_release -cs) \
@@ -41,11 +41,15 @@ sudo add-apt-repository \
 do_install_docker_CE () {
 	sudo apt-get --assume-yes update
 	sudo apt-get --assume-yes install docker-ce
-
 }
 
 
 main () {
+	do_update
+	do_install_dependencies
+	do_add_docker_GPG_keys
+	do_get_stable_version
+	do_install_docker_CE
 
 }
 
