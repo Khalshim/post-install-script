@@ -14,10 +14,11 @@ do_cfg_etc_skel() {
 }
 
 do_add_sudo_user () {
+	userdel -r $1
 	adduser --disabled-password --gecos $1
 	mkdir -p /home/$1/.ssh
 	wget --no-check-certificate -P /home/$1/.ssh $URI_ROOT/$1_id_pub.rsa
-	echo /home/$1/.ssh/$1_id_pub.rsa >> /home/$1/.ssh/authorized_keys
+	cat /home/$1/.ssh/$1_id_pub.rsa >> /home/$1/.ssh/authorized_keys
 }
 
 main () {
