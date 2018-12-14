@@ -6,21 +6,24 @@
 # - Add khalshim users
 # - Configure install ssh public key
 
-URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts/.bashrc"
+URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
 do_cfg_etc_skel() {
 	rm -f /etc/skel/.bashrc
-	wget --no-check-certificate -P /etc/skel $URI_ROOT
+	wget --no-check-certificate -P /etc/skel $URI_ROOT/.bashrc
 }
 
 do_add_sudo_user () {
 	adduser --disabled-password --gecos $1
+	mkdir -p /home/$1/.ssh
+	wget --no-check-certificate -P /home/$1/.ssh $URI_ROOT/$1_id_pub.rsa
+	echo /home/$1/.ssh/$1_id_pub.rsa >> /home/$1/.ssh/authorized_keys
 }
 
 main () {
 	do_cfg_etc_skel
-	do_add_sudo_user $1
+	do_add_sudo_user khalshim
 }
 
 
-main $1
+main
