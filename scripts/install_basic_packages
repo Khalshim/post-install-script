@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Post-installation Configuration Scripts
+#
+# Common Debian based host tasks
+# - Install base packages
+
+do_upgrade () {
+  apt-get --assume-yes update
+  apt-get --assume-yes upgrade
+  apt-get --assume-yes dist-upgrade
+}
+
+
+install_base_packages () {
+  apt-get --assume-yes install sudo
+}
+
+main () {
+	install_base_packages
+}
+
+main

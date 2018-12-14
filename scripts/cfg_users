@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# Post-installation Configuration Scripts
+#
+# configure users
+# - Add khalshim users
+# - Configure install ssh public key
+
+URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/.bashrc"
+
+do_cfg_etc_skel() {
+	wget --no-check-certificate -N -P /etc/skel -O - $URI_ROOT
+}
+
+do_add_sudo_user () {
+	useradd $1 --create-home --groups sudo
+}
+
+main () {
+	do_cfg_etc_skel
+	do_add_sudo_ser $1
+}
+
+
+main $1
