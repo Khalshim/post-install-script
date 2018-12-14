@@ -2,21 +2,16 @@
 #
 # Post-installation Configuration Scripts
 #
-# OVH-specific actions for Debian based hosts
-# - Fix locals
+# Install Docker CE
 
 
-fix_locales () {
-  sed -i -e 's/^en_GB/# en_GB/' /etc/locale.gen
-  sed -i -e 's/en_GB/en_US/' /etc/default/locale
-  sed -i -e 's/# LANG/LANG/' /etc/default/locale
-  dpkg-reconfigure --frontend=noninteractive locales
+do_install_docker_CE () {
+
 }
 
 
 main () {
-  fix_locales
-  touch ovh_debian_done
+
 }
 
 
