@@ -25,4 +25,4 @@ main () {
 	do_add_user_to_dockergroup $1
 }
 
-main
+main $1
