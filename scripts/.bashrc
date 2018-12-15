@@ -99,6 +99,7 @@ alias ..='cd ..'
 alias dstart='sudo docker run -v /home/$USER/DST:/data --name dst_server_container -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest'
 alias dstop='sudo docker kill -s SIGINT dst_server_container'
 alias drestart='dstop;dstart'
+alias dlog='less /home/$USER/DST/DoNotStarveTogether/Cluster_1/Master/server_log.txt
 
 alias godst='cd ~/.klei/DoNotStarveTogether/DoNotStarveTogether/Cluster_1'
 

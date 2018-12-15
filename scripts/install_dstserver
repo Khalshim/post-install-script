@@ -2,11 +2,11 @@
 #
 # Post-installation Configuration Scripts
 #
-# Install Docker CE
+# Install DST Server for user
 
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
-SERVDIR=/home/$USER/DoNotStarveTogether/DoNotStarveTogether/Cluster_1
+SERVDIR=/home/$USER/DST/DoNotStarveTogether/Cluster_1
 
 
 do_pull_dst_server_image () {
@@ -14,9 +14,8 @@ do_pull_dst_server_image () {
 }
 
 do_dst_server_first_launch() {
-	su khalshim
-	docker run -v /home/$USER/DST:/data --name dst_server_container -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
-	docker kill -s SIGINT dst_server_container
+	docker run -v /home/$USER/DST:/data --name $1 -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+	docker kill -s SIGINT $1
 	rm -f $SERVDIR/cluster.ini
 	rm -f $SERVDIR/cluster_token.txt
 	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster.ini
@@ -26,7 +25,7 @@ do_dst_server_first_launch() {
 
 main () {
 	do_pull_dst_server_image
-	do_dst_server_first_launch
+	do_dst_server_first_launch $1
 	
 }
 

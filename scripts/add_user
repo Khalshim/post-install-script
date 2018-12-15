@@ -8,11 +8,6 @@
 
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
-do_cfg_etc_skel() {
-	rm -f /etc/skel/.bashrc
-	wget --no-check-certificate -P /etc/skel $URI_ROOT/.bashrc
-}
-
 do_add_sudo_user () {
 	deluser --remove-home $1
 	adduser --disabled-password --gecos $1 $1
@@ -25,15 +20,9 @@ do_add_user_to_dockergroup () {
 	sudo usermod -aG docker $USER
 }
 
-do_add_user () {
+main () {
 	do_add_sudo_user $1
 	do_add_user_to_dockergroup $1
 }
-
-main () {
-	do_cfg_etc_skel
-	do_add_user khalshim
-}
-
 
 main
