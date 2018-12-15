@@ -28,8 +28,8 @@ cfg_debian () {
   apt-get --assume-yes install wget
 
   exec_remote "scripts/install_basic_packages"
-  exec_remote "scripts/cfg_users"
   exec_remote "scripts/install_docker"
+  exec_remote "scripts/cfg_users"
   exec_remote "scripts/install_dstserver"
 }
 
