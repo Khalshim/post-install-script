@@ -43,7 +43,6 @@ do_install_docker_CE () {
 	sudo apt-get --assume-yes install docker-ce
 }
 
-
 main () {
 	do_update
 	do_install_dependencies

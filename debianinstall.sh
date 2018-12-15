@@ -27,6 +27,7 @@ cfg_debian () {
   exec_remote "scripts/install_basic_packages"
   exec_remote "scripts/cfg_users"
   exec_remote "scripts/install_docker"
+  exec_remote "scripts/install_dst_server"
 }
 
 main () {

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Post-installation Configuration Scripts
+#
+# Install Docker CE
+
+URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
+
+SERVDIR=/home/$USER/DoNotStarveTogether/DoNotStarveTogether/Cluster_1
+
+
+do_pull_dst_server_image () {
+	sudo docker pull jamesits/dst-server
+}
+
+do_dst_server_first_launch() {
+	docker run -v /home/$USER/DST:/data --name dst_server_container -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+	docker kill -s SIGINT dst_server_container
+	rm -f $SERVDIR/cluster.ini
+	rm -f $SERVDIR/cluster_token.txt
+	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster.ini
+	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster_token.txt
+	docker run -v /home/$USER/DST:/data --name dst_server_container -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+}
+
+main () {
+	do_pull_dst_server_image
+	do_dst_server_first_launch
+	
+}
+
+main

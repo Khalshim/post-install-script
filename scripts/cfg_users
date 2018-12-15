@@ -21,9 +21,18 @@ do_add_sudo_user () {
 	cat /home/$1/.ssh/$1_id_pub.rsa >> /home/$1/.ssh/authorized_keys
 }
 
+do_add_user_to_dockergroup () {
+	sudo usermod -aG docker $USER
+}
+
+do_add_user () {
+	do_add_sudo_user $1
+	do_add_user_to_dockergroup $1
+}
+
 main () {
 	do_cfg_etc_skel
-	do_add_sudo_user khalshim
+	do_add_user khalshim
 }
 
 
