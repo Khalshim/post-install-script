@@ -26,7 +26,7 @@ do_change_sudoers_file ()
 {
 	# Take a backup of sudoers file and change the backup file.
 	sudo cp /etc/sudoers /tmp/sudoers.bak
-	sudo echo "$1 ALL=(ALL) NOPASSWD:ALL	Defaults:$1 !requiretty" >> /tmp/sudoers.bak
+	sudo echo "$1 ALL=(ALL) NOPASSWD: ALL" >> /tmp/sudoers.bak
 
 	# Check syntax of the backup file to make sure it is correct.
 	sudo visudo -cf /tmp/sudoers.bak
