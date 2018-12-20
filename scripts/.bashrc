@@ -100,7 +100,7 @@ alias godst='cd ~/.klei/DoNotStarveTogether/DoNotStarveTogether/Cluster_1'
 alias dlog='less /home/$USER/DST/DoNotStarveTogether/Cluster_1/Master/server_log.txt'
 
 dstart() {
-sudo docker run -v /home/$USER/DST:/data --name $1 -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+docker start $1
 }
 
 dstop() {
