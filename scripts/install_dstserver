@@ -13,14 +13,18 @@ do_pull_dst_server_image () {
 	docker pull jamesits/dst-server
 }
 
-do_dst_server_first_launch() {
+do_dst_server_run() {
 	docker run -v /home/$USER/DST:/data --name $1 -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+}
+
+do_dst_server_first_launch() {
+	do_dst_server_run $1	
 	docker kill -s SIGINT $1
 	rm -f $SERVDIR/cluster.ini
 	rm -f $SERVDIR/cluster_token.txt
 	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster.ini
 	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster_token.txt
-	docker run -v /home/$USER/DST:/data --name dst_server_container -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+	do_dst_server_run $1
 }
 
 main () {
@@ -29,4 +33,4 @@ main () {
 	
 }
 
-main
+main $1
