@@ -10,7 +10,7 @@ SERVDIR=/home/$USER/DST/DoNotStarveTogether/Cluster_1
 
 
 do_pull_dst_server_image () {
-	sudo docker pull jamesits/dst-server
+	docker pull jamesits/dst-server
 }
 
 do_dst_server_first_launch() {
