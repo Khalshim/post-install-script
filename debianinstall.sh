@@ -13,13 +13,6 @@ exec 1>log.out 2>&1
 # OVH dedicated servers are expected to run this script as "script"
 EXPECT_SCRIPT_PATH="/tmp/script"
 
-# Log files
-LOG_FILE="/home/root/postinstall.log"
-ERROR_FILE="/home/root/postinstall_error.log"
-exec 1>$LOG_FILE
-exec 2>$ERROR_FILE
-
-
 # Remote scripts URI root
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/"
 
