@@ -6,6 +6,11 @@
 # - Add khalshim users
 # - Configure install ssh public key
 
+#!/bin/bash
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+exec 1>log_add_users_skel_$1.out 2>&1
+
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
 do_add_sudo_user () {
@@ -14,6 +19,24 @@ do_add_sudo_user () {
 	mkdir -p /home/$1/.ssh
 	wget --no-check-certificate -P /home/$1/.ssh $URI_ROOT/$1_id_pub.rsa
 	cat /home/$1/.ssh/$1_id_pub.rsa >> /home/$1/.ssh/authorized_keys
+	do_change_sudoers_file $1
+}
+
+do_change_sudoers_file ()
+{
+	# Take a backup of sudoers file and change the backup file.
+	sudo cp /etc/sudoers /tmp/sudoers.bak
+	sudo echo "$1 ALL=(ALL) NOPASSWD:ALL	Defaults:$1 !requiretty" >> /tmp/sudoers.bak
+
+	# Check syntax of the backup file to make sure it is correct.
+	sudo visudo -cf /tmp/sudoers.bak
+	if [ $? -eq 0 ]; then
+	# Replace the sudoers file with the new only if syntax is correct.
+		sudo cp /tmp/sudoers.bak /etc/sudoers
+	else
+		echo "Could not modify /etc/sudoers file. Please do this manually."
+		exit 1
+	fi
 }
 
 do_add_user_to_dockergroup () {

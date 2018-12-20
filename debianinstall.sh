@@ -5,6 +5,10 @@
 # First stage script for Kimsufi
 #
 
+#!/bin/bash
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+exec 1>log.out 2>&1
 
 # OVH dedicated servers are expected to run this script as "script"
 EXPECT_SCRIPT_PATH="/tmp/script"
@@ -37,6 +41,7 @@ cfg_debian () {
   exec_remote "scripts/install_docker"
   exec_remote "scripts/cfg_users_skel"
   exec_remote "scripts/add_user khalshim"
+  su khalshim
   exec_remote "scripts/install_dstserver dst_serv"
 }
 
