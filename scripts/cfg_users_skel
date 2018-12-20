@@ -6,6 +6,11 @@
 # - Add khalshim users
 # - Configure install ssh public key
 
+#!/bin/bash
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+exec 1>log_cfg_users_skel.out 2>&1
+
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
 do_cfg_etc_skel() {

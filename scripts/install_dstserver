@@ -2,7 +2,12 @@
 #
 # Post-installation Configuration Scripts
 #
-# Install DST Server for user
+# Install DST Server
+
+#!/bin/bash
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+exec 1>log_install_dst_server.out 2>&1
 
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
