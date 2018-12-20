@@ -6,9 +6,9 @@
 #
 
 #!/bin/bash
-exec 3>&1 4>&2
-trap 'exec 2>&4 1>&3' 0 1 2 3
-exec 1>log.out 2>&1
+#exec 3>&1 4>&2
+#trap 'exec 2>&4 1>&3' 0 1 2 3
+#exec 1>log.out 2>&1
 
 # OVH dedicated servers are expected to run this script as "script"
 EXPECT_SCRIPT_PATH="/tmp/script"
@@ -22,7 +22,7 @@ ERR_KO=1
 
 exec_remote () {
   # 'raw.githubusercontent.com' domain may not clear HTTPS CA checks
-  bash <(wget --no-check-certificate -O - $URI_ROOT$1)
+  bash <(wget --no-check-certificate -O - $URI_ROOT$1) $2
   return $?
 }
 
@@ -33,9 +33,8 @@ cfg_debian () {
   exec_remote "scripts/install_basic_packages"
   exec_remote "scripts/install_docker"
   exec_remote "scripts/cfg_users_skel"
-  exec_remote "scripts/add_user khalshim"
-  su khalshim
-  exec_remote "scripts/install_dstserver dst_serv"
+  exec_remote "scripts/add_user" khalshim
+  bash <(wget --no-check-certificate -O - $URI_ROOT/scripts/install_dstserver) dst_serv_1
 }
 
 main () {
