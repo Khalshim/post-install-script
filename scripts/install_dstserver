@@ -29,7 +29,6 @@ do_dst_server_first_launch() {
 	rm -f $SERVDIR/cluster_token.txt
 	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster.ini
 	wget --no-check-certificate -P $SERVDIR $URI_ROOT/cluster_token.txt
-	do_dst_server_run $1
 }
 
 main () {

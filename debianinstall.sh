@@ -34,7 +34,7 @@ cfg_debian () {
   exec_remote "scripts/install_docker"
   exec_remote "scripts/cfg_users_skel"
   exec_remote "scripts/add_user" khalshim
-  bash <(wget --no-check-certificate -O - $URI_ROOT/scripts/install_dstserver) dst_serv_1
+  exec_remote "scripts/install_dstserver" dst_serv1
 }
 
 main () {
