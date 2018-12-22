@@ -11,7 +11,7 @@ exec 1>log_install_dst_server.out 2>&1
 
 URI_ROOT="https://raw.githubusercontent.com/Khalshim/post-install-script/master/scripts"
 
-SERVDIR=/home/$USER/DST/DoNotStarveTogether/Cluster_1
+SERVDIR=/home/$USER/$1/DoNotStarveTogether/Cluster_1
 
 
 do_pull_dst_server_image () {
@@ -19,7 +19,7 @@ do_pull_dst_server_image () {
 }
 
 do_dst_server_run() {
-	docker run -v /home/$USER/DST:/data --name $1 -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
+	docker run -v /home/$USER/$1:/data --name $1 -p 10999-11000:10999-11000/udp -p 12346-12347:12346-12347/udp jamesits/dst-server:latest
 }
 
 do_dst_server_first_launch() {
